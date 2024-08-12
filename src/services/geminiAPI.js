@@ -16,7 +16,6 @@ async function generateResponse(requestSession) {
   const imageOrigin = requestSession.imageOrigin; // Get the image origin
 
   const imageData = getFileData(imageOrigin); // Get the image type and data
-  //console.log(imageData);
 
   requestSession.history = convertHistory(requestSession.history); // Convert the history to required format
 

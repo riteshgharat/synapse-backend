@@ -1,6 +1,5 @@
 import express from "express";
 import upload from "../middleware/multer.middleware.js";
-import { uploadOnCloudinary } from "../utils/cloudinary.js";
 
 const uploadRouter = express.Router();
 

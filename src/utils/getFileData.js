@@ -1,7 +1,7 @@
 import fs from "fs";
 
 function getFileData(origin) {
-if(!origin) return null;
+  if (!origin) return null;
 
   let fileOrigin = origin; // Get the file origin
   let fileType = origin ? origin.split(".")[1] : null; // Get the file type

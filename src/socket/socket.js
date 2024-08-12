@@ -1,6 +1,7 @@
 import { Server } from "socket.io";
 import http from "http";
 import express from "express";
+import fs from "fs";
 
 import { generateResponse } from "../services/geminiAPI.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
@@ -23,7 +24,6 @@ io.on("connection", (socket) => {
   // Handle the "generate" event
   socket.on("generate", async (session) => {
     // Log the prompt
-    // console.log("Prompt:", session.prompt);
 
     // Initialize the response
     let response = "";
@@ -45,6 +45,11 @@ io.on("connection", (socket) => {
       }
       // Emit the end of the response to the client
       socket.emit("response", response);
+
+      // Delete the image file
+      if (session.imageOrigin) {
+        fs.unlinkSync(`./public/uploads/${session.imageOrigin}`);
+      }
     } catch (error) {
       // Emit the response to the client
       socket.emit("response", response);
@@ -52,6 +57,11 @@ io.on("connection", (socket) => {
       // Log the error
       console.error("Error handling request:", error);
       socket.emit("error", error.message);
+
+      // Delete the image file
+      if (session.imageOrigin) {
+        fs.unlinkSync(`./public/uploads/${session.imageOrigin}`);
+      }
     }
   });
 
